@@ -1,26 +1,20 @@
 # AI Study Platform
 
-
-
 ## Setup
-1. Install prerequisites:
-   - Node.js v18+
-   - Python 3.10+
-## backend
+
+### Prerequisites
+- Node.js v18+
+- Python 3.10+
+
+### Backend
 
 cd backend
-.\venv\Scripts\activate
 python -m venv venv
-source venv/bin/activate  # or .\venv\Scripts\activate on Windows
+source venv/bin/activate  # On Windows: .\venv\Scripts\activate
 pip install -r requirements.txt
 cp .env.example .env
-```bash
-cd backend
-python -m venv venv
-source venv/bin/activate
-...
-## Frontend
+
+### Frontend
 ```bash
 cd frontend
 npm install
-cp .env.example .env.local
