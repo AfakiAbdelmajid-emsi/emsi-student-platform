@@ -7,6 +7,7 @@
    - Node.js v18+
    - Python 3.10+
 ## backend
+```bash
 cd backend
 .\venv\Scripts\activate
 python -m venv venv
