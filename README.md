@@ -18,6 +18,7 @@ cp .env.example .env
 cd frontend
 npm install
 cp .env.example .env.local
+
 ## Github 
 ## Uploading Your Changes (Push)
 # Check which files have been modified
