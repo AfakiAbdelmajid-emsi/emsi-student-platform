@@ -233,4 +233,17 @@ Scripts (in `frontend/package.json`):
 ---
 
 ## License
-Add a license (e.g., MIT) if open-sourcing.
+Copyright (c) 2025 Abdelmajid Afaki. All rights reserved.
+
+This software and associated files are the exclusive property of Abdelmajid Afaki.
+
+Unauthorized copying, modification, distribution, or use of this software, 
+in whole or in part, without prior written permission from the copyright holder 
+is strictly prohibited.
+
+The software may not be redistributed or published in any form, with or without 
+modifications, without explicit authorization.
+
+For inquiries, permissions, or commercial use, please contact:
+afakiabdelmajid@gmail.com
+
