@@ -1,57 +1,110 @@
-# AI Study Platform
+## AI Study Platform (Flask)
 
-## Setup
+An AI-focused study and learning management web app. Organize study tracks, cohorts (groups), assignments, personal learning tasks, and live sessions with a unified calendar. Role-based access: Admin and Student (named `employee` in the code).
 
-### Prerequisites
-- Node.js v18+
+### What this platform does
+- Admin
+  - Create tracks (curricula) and cohorts, assign coursework, schedule sessions
+  - Manage users: activate/deactivate, set roles, view learner details
+- Student
+  - View and complete assigned coursework; log progress entries
+  - Create personal study tasks and track progress
+  - View a role-aware calendar aggregating assignments, track milestones, and events
+  - Manage profile and avatar
+
+### Architecture overview
+- Flask app (`app.py`) registers three blueprints and configures DB/auth
+  - `authroutes.py`: login/logout
+  - `adminroutes.py`: admin features (users, teams, projects, tasks, events, profile)
+  - `employeeroutes.py`: student features (assigned tasks, personal tasks, teams, projects, events, profile)
+- Data models in `modals.py` (SQLAlchemy): `users`, `Teams`, `Project`, `Task`, `TaskAssignment`, `Task_Progression`, `PersonalTask`, `PersonalTaskProgression`, `Event` and joins
+- Extensions in `extensions.py`: `db`, `bcrypt`, `login_manager`, `ALLOWED_EXTENSIONS`
+- Helpers in `utils.py`: status calculation and sorting
+- UI in `templates/` (admin, employee, and shared `components/`)
+
+Concept mapping to study domain
+- Tracks → `Project`
+- Cohorts/Groups → `Teams` (+ `TeamsMember` and supervisor)
+- Assignments → `Task` (+ `TaskAssignment`, `Task_Progression`)
+- Personal learning tasks → `PersonalTask` (+ `PersonalTaskProgression`)
+- Live sessions → `Event` (+ `EventTeam`, `EventEmployee`)
+
+### Tech stack
+- Python, Flask
+- Flask-SQLAlchemy (MySQL), Flask-Login, Flask-Bcrypt
+- Jinja2 templates
+
+### Setup
+Prerequisites
 - Python 3.10+
+- MySQL 8.x (or compatible)
 
-### Backend
-<pre> 
-cd backend
-python -m venv venv
-source venv/bin/activate  # On Windows: .\venv\Scripts\activate
-pip install -r requirements.txt
-cp .env.example .env
-</pre> 
-### Frontend
+1) Create a virtual environment
 ```bash
-cd frontend
-npm install
-<<<<<<< HEAD
-cp .env.example .env.local
+python -m venv .venv
+.venv\Scripts\activate  # Windows PowerShell
+```
 
-## Github 
-## Uploading Your Changes (Push)
-# Check which files have been modified
-git status
+2) Install dependencies
+```bash
+pip install Flask Flask-SQLAlchemy Flask-Bcrypt Flask-Login PyMySQL
+```
 
-# Stage all changes (or specify specific files)
-git add .  # Adds all changes
-# OR
-git add file1.txt file2.js  # Adds specific files
+3) Configure environment
+Set env vars or edit `config.py` defaults.
+```powershell
+$env:SECRET_KEY = "change-me"
+$env:DATABASE_URL = "mysql+pymysql://root:yourpassword@localhost/python_project"
+```
 
-# Commit changes with a descriptive message
-git commit -m "Your descriptive commit message"
+Create the database
+```sql
+CREATE DATABASE python_project CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
 
-# Pull latest changes from the remote (to avoid conflicts)
-git pull origin main  # or 'master' if your branch is named differently
+Note: For local dev without HTTPS, you may set `SESSION_COOKIE_SECURE=False` in `config.py` temporarily.
 
-# Push your changes to the remote repository
-git push origin main  # or 'master'
+4) Run
+```bash
+python app.py
+```
+Open `http://127.0.0.1:5000/`.
 
+### Roles and access
+- Admin: full access to tracks, cohorts, assignments, events, and user management
+- Student (`employee` in code): assigned tasks, personal tasks, teams, calendar, profile
 
-##  Getting Updates from Your Team (Pull)
-# Fetch and merge the latest changes from 'main' (or 'master')
-git pull origin main
+First Admin bootstrap
+```python
+from flask_bcrypt import Bcrypt
+bcrypt = Bcrypt()
+print(bcrypt.generate_password_hash("YourPassword").decode("utf-8"))
+```
+Insert a row in `users` with `status='active'`, `usertype='Admin'`, and the hash in `Pasword`.
 
-# If you want to check changes before merging, first fetch:
-git fetch origin
+### Key flows
+- Status logic: Upcoming/Open/Closed computed from dates and status fields
+- Sorting: open first, then upcoming, then closed
+- Calendar: merges assignments, tracks, and events; student view filters to relevant items
 
-# Then compare your branch with the remote
-git diff main origin/main
+### High-level routes
+- Auth: `/`, `/login`, `/logout`
+- Admin: `/admin/usersdashboard`, `/admin/teams`, `/admin/projects`, `/admin/tasks`, `/admin/calendar`, `/admin/profile/<Utoken>`
+- Student: `/employee/Assignedtasks`, `/employee/personaltasks`, `/employee/teams`, `/employee/team_projects`, `/employee/calendar`, `/employee/profile/<Utoken>`
 
-# Finally, merge the changes
-git merge origin/main
-=======
->>>>>>> 2bf52ad0524c7afe5a4575221b3dfb6aa738c96d
+### Roadmap (AI)
+- Personalized track recommendations and pacing via progress data
+- Spaced repetition scheduler for assignments/personal tasks
+- LLM tutor for contextual Q&A and code reviews
+- Predictive reminders and risk flags for falling behind
+
+### Troubleshooting
+- Login loops: ensure user is `active` and has correct `usertype`
+- MySQL driver: use `mysql+pymysql://...` when PyMySQL is installed
+- Cookies in dev: set `SESSION_COOKIE_SECURE=False` if not on HTTPS
+
+### Screenshots
+Add images to `static/` and reference them here.
+
+### License
+Add a license (MIT recommended) if open-sourcing.
