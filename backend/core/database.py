@@ -1,14 +1,12 @@
 from supabase import create_client
-from dotenv import load_dotenv
 import os
-
-load_dotenv()
+from core.config import settings  # Import settings from the configuration file
 
 class SupabaseClient:
     def __init__(self):
         self.client = create_client(
-            os.getenv("SUPABASE_URL"),
-            os.getenv("SUPABASE_KEY")
+            settings.SUPABASE_URL,
+            settings.SUPABASE_KEY
         )
     
     def get_client(self):

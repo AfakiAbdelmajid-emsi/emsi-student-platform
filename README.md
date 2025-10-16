@@ -18,6 +18,8 @@ cp .env.example .env
 ```bash
 cd frontend
 npm install
+<<<<<<< HEAD
+cp .env.example .env.local
 
 ## Github 
 ## Uploading Your Changes (Push)
@@ -51,3 +53,5 @@ git diff main origin/main
 
 # Finally, merge the changes
 git merge origin/main
+=======
+>>>>>>> 2bf52ad0524c7afe5a4575221b3dfb6aa738c96d

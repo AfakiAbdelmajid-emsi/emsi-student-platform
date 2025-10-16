@@ -1,0 +1,345 @@
+.editor {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border-bottom: 1px solid #e2e8f0;
+  background: #f8f9fa;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  flex-wrap: wrap;
+}
+
+.toolbarGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  position: relative;
+}
+
+.toolbarSeparator {
+  width: 1px;
+  height: 24px;
+  background: #e2e8f0;
+  margin: 0 0.25rem;
+}
+
+.toolbarButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  color: #64748b;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  padding: 0;
+}
+
+.toolbarButton:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.toolbarButton.active {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.editorContent {
+  padding: 1rem;
+  min-height: 200px;
+  max-height: 70vh;
+  overflow-y: auto;
+  background: white;
+}
+
+/* Highlight color picker styles */
+.highlightButton {
+  position: relative;
+}
+
+.highlightMenu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 0.5rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  z-index: 50;
+  min-width: 120px;
+}
+
+.colorButton {
+  width: 24px;
+  height: 24px;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.colorButton:hover {
+  transform: scale(1.1);
+}
+
+.removeHighlight {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.removeHighlight:hover {
+  background: #fee2e2;
+  color: #ef4444;
+  border-color: #fecaca;
+}
+
+.linkInput {
+  grid-column: 1 / -1;
+  padding: 0.5rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  width: 100%;
+  margin-bottom: 0.5rem;
+  background: white;
+}
+
+.linkInput:focus {
+  outline: none;
+  border-color: #93c5fd;
+  box-shadow: 0 0 0 2px rgba(147, 197, 253, 0.2);
+}
+
+/* Editor content styles */
+.editorContent :global(.ProseMirror) {
+  outline: none;
+  min-height: 100px;
+}
+
+.editorContent :global(.ProseMirror p) {
+  margin: 0.75em 0;
+  line-height: 1.6;
+}
+
+.editorContent :global(.ProseMirror h1) {
+  font-size: 2em;
+  font-weight: 700;
+  margin: 1em 0 0.5em;
+  line-height: 1.2;
+}
+
+.editorContent :global(.ProseMirror h2) {
+  font-size: 1.5em;
+  font-weight: 600;
+  margin: 1em 0 0.5em;
+  line-height: 1.3;
+}
+
+.editorContent :global(.ProseMirror ul),
+.editorContent :global(.ProseMirror ol) {
+  padding-left: 1.5em;
+  margin: 0.75em 0;
+  list-style-position: outside;
+}
+
+.editorContent :global(.ProseMirror ul) {
+  list-style-type: disc;
+}
+
+.editorContent :global(.ProseMirror ol) {
+  list-style-type: decimal;
+}
+
+.editorContent :global(.ProseMirror li) {
+  margin: 0.25em 0;
+  display: list-item;
+}
+
+.editorContent :global(.ProseMirror blockquote) {
+  border-left: 3px solid #e2e8f0;
+  padding-left: 1em;
+  margin: 1em 0;
+  color: #64748b;
+}
+
+.editorContent :global(.ProseMirror code) {
+  background: #f1f5f9;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.editorContent :global(.ProseMirror pre) {
+  background: #f8fafc;
+  padding: 1em;
+  border-radius: 6px;
+  margin: 1em 0;
+  overflow-x: auto;
+  border: 1px solid #e2e8f0;
+  position: relative;
+}
+
+.editorContent :global(.ProseMirror pre::before) {
+  content: 'Code';
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #f1f5f9;
+  color: #64748b;
+  font-size: 0.75em;
+  padding: 0.2em 0.5em;
+  border-bottom-left-radius: 4px;
+  border-top-right-radius: 5px;
+  border-left: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.editorContent :global(.ProseMirror pre code) {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  font-size: 0.9em;
+  color: #0f172a;
+}
+
+.editorContent :global(.ProseMirror img) {
+  max-width: 100%;
+  height: auto;
+  margin: 1em 0;
+  border-radius: 6px;
+}
+
+.editorContent :global(.ProseMirror a) {
+  color: #2563eb;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.editorContent :global(.ProseMirror a:hover) {
+  color: #1d4ed8;
+  text-decoration-thickness: 2px;
+}
+
+.editorContent :global(.ProseMirror a:focus) {
+  outline: 2px solid #93c5fd;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.editorContent :global(.ProseMirror mark) {
+  padding: 0.1em 0.2em;
+  border-radius: 2px;
+}
+
+.editorContent :global(.ProseMirror mark[style*="background-color: #fef08a"]) {
+  background-color: #fef08a !important;
+}
+
+.editorContent :global(.ProseMirror mark[style*="background-color: #86efac"]) {
+  background-color: #86efac !important;
+}
+
+.editorContent :global(.ProseMirror mark[style*="background-color: #93c5fd"]) {
+  background-color: #93c5fd !important;
+}
+
+.editorContent :global(.ProseMirror mark[style*="background-color: #fbcfe8"]) {
+  background-color: #fbcfe8 !important;
+}
+
+.editorContent :global(.ProseMirror mark[style*="background-color: #fdba74"]) {
+  background-color: #fdba74 !important;
+}
+
+.editorContent :global(.ProseMirror mark[style*="background-color: #d8b4fe"]) {
+  background-color: #d8b4fe !important;
+}
+
+.editorContent :global(.ProseMirror mark[style*="background-color: #fca5a5"]) {
+  background-color: #fca5a5 !important;
+}
+
+.editorContent :global(.ProseMirror ul[data-type="taskList"]) {
+  list-style: none;
+  padding: 0;
+}
+
+.editorContent :global(.ProseMirror ul[data-type="taskList"] li) {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5em;
+  margin: 0.5em 0;
+}
+
+.editorContent :global(.ProseMirror ul[data-type="taskList"] li > label) {
+  margin-top: 0.2em;
+}
+
+.editorContent :global(.ProseMirror ul[data-type="taskList"] li > div) {
+  flex: 1;
+}
+
+.editorContent :global(.ProseMirror ul[data-type="taskList"] input[type="checkbox"]) {
+  width: 1em;
+  height: 1em;
+  margin: 0;
+  border: 2px solid #cbd5e1;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.editorContent :global(.ProseMirror ul[data-type="taskList"] input[type="checkbox"]:checked) {
+  background-color: #2563eb;
+  border-color: #2563eb;
+}
+
+.editorContent :global(.ProseMirror ul[data-type="taskList"] input[type="checkbox"]:checked + div) {
+  text-decoration: line-through;
+  color: #64748b;
+}
+
+@media (max-width: 768px) {
+  .toolbar {
+    flex-wrap: wrap;
+    gap: 2px;
+    padding: 4px;
+  }
+
+  .toolbarButton {
+    height: 28px;
+    width: 28px;
+  }
+
+  .editorContent {
+    padding: 12px;
+  }
+} 
